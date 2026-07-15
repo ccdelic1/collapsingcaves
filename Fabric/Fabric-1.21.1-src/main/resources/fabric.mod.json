@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "collapsingcaves",
+	"version": "${version}",
+	"name": "CollapsingCaves",
+	"description": "Adds realistic cave-in mechanics to Minecraft. Stone, ores, and dirt-like blocks can collapse when mined, creating dramatic progressive cave-ins with screen shake effects.",
+	"authors": [
+		"ccdelic"
+	],
+	"contact": {},
+	"license": "CC0-1.0",
+	"icon": "assets/collapsingcaves/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.collapsingcaves.CollapsingCaves"
+		],
+		"client": [
+			"com.collapsingcaves.CollapsingCavesClient"
+		],
+		"fabric-datagen": [
+			"com.collapsingcaves.CollapsingCavesDataGenerator"
+		]
+	},
+	"mixins": [
+		"collapsingcaves.mixins.json",
+		{
+			"config": "collapsingcaves.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

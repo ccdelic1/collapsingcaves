@@ -1,0 +1,17 @@
+{
+  "block_land": {
+    "subtitle": "subtitles.collapsingcaves.block_land",
+    "sounds": [
+      "collapsingcaves:block_land"
+    ]
+  },
+  "cave_rumble": {
+    "subtitle": "subtitles.collapsingcaves.cave_rumble",
+    "sounds": [
+      {
+        "name": "collapsingcaves:cave_rumble",
+        "stream": true
+      }
+    ]
+  }
+}
