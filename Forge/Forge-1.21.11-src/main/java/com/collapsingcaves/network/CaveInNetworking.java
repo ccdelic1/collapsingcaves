@@ -1,0 +1,63 @@
+package com.collapsingcaves.network;
+
+import com.collapsingcaves.cavein.CaveInTier;
+import com.collapsingcaves.client.ClientPayloadHandler;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.Identifier;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.network.Channel;
+import net.minecraftforge.network.ChannelBuilder;
+import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.network.SimpleChannel;
+
+public class CaveInNetworking {
+    private static final SimpleChannel CHANNEL = ChannelBuilder
+            .named(Identifier.fromNamespaceAndPath("collapsingcaves", "main"))
+            .networkProtocolVersion(1)
+            .acceptedVersions(Channel.VersionTest.exact(1))
+            .simpleChannel();
+
+    public static void registerPayloads() {
+        // These payloads are server->client only; the dist guard keeps client-only
+        // classes from being touched if a payload ever reaches a dedicated server.
+        CHANNEL.messageBuilder(CaveInPayload.class, 0)
+                .codec(CaveInPayload.STREAM_CODEC)
+                .consumerMainThread((payload, context) -> {
+                    if (FMLEnvironment.dist.isClient()) {
+                        ClientPayloadHandler.handleCaveInStart(payload);
+                    }
+                })
+                .add();
+
+        CHANNEL.messageBuilder(CaveInStopPayload.class, 1)
+                .codec(CaveInStopPayload.STREAM_CODEC)
+                .consumerMainThread((payload, context) -> {
+                    if (FMLEnvironment.dist.isClient()) {
+                        ClientPayloadHandler.handleCaveInStop(payload);
+                    }
+                })
+                .add();
+    }
+
+    public static void sendCaveInToNearbyPlayers(ServerLevel level, BlockPos center, CaveInTier tier) {
+        double maxDist = tier.shakeMaxDistance;
+        for (ServerPlayer player : level.players()) {
+            double dist = player.blockPosition().distSqr(center);
+            if (dist <= maxDist * maxDist) {
+                CHANNEL.send(new CaveInPayload(center, tier.ordinal()), PacketDistributor.PLAYER.with(player));
+            }
+        }
+    }
+
+    public static void sendCaveInStopToNearbyPlayers(ServerLevel level, BlockPos center, CaveInTier tier) {
+        double maxDist = tier.shakeMaxDistance;
+        for (ServerPlayer player : level.players()) {
+            double dist = player.blockPosition().distSqr(center);
+            if (dist <= maxDist * maxDist) {
+                CHANNEL.send(new CaveInStopPayload(center), PacketDistributor.PLAYER.with(player));
+            }
+        }
+    }
+}

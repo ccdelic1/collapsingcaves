@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[61,)"
+license="CC0-1.0"
+
+[[mods]]
+modId="collapsingcaves"
+version="${version}"
+displayName="CollapsingCaves"
+authors="ccdelic"
+logoFile="assets/collapsingcaves/icon.png"
+
+description='''Adds realistic cave-in mechanics to Minecraft. Stone, ores, and dirt-like blocks can collapse when mined, creating dramatic progressive cave-ins with screen shake effects.'''
+
+[[dependencies.collapsingcaves]]
+    modId="forge"
+    mandatory=true
+    versionRange="[61,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.collapsingcaves]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.21.11,1.21.12)"
+    ordering="NONE"
+    side="BOTH"
