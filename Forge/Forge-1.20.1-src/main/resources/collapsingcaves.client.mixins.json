@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.collapsingcaves.mixin.client",
+	"refmap": "collapsingcaves.refmap.json",
+	"compatibilityLevel": "JAVA_16",
+	"client": [
+		"CameraShakeMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

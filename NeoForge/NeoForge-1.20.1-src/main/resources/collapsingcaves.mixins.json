@@ -1,0 +1,15 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "com.collapsingcaves.mixin",
+	"refmap": "collapsingcaves.refmap.json",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"BlockPlaceMixin",
+		"FallingBlockLandMixin",
+		"ServerPlayerGameModeMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
