@@ -1,0 +1,32 @@
+license="CC0-1.0"
+
+[[mods]]
+modId="collapsingcaves"
+version="1.7"
+displayName="CollapsingCaves"
+logoFile="icon.png"
+description='''
+This mod causes cave-ins when a player mines stone, deepslate, ore, dirt or gravel below ground.
+'''
+authors="CCDelic"
+
+[[mixins]]
+config="collapsingcaves.mixins.json"
+
+[[mixins]]
+config="collapsingcaves.client.mixins.json"
+clientOnly=true
+
+[[dependencies.collapsingcaves]]
+    modId="neoforge"
+    type="required"
+    versionRange="[26.1.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.collapsingcaves]]
+    modId="minecraft"
+    type="required"
+    versionRange="[26.1.2,26.3)"
+    ordering="NONE"
+    side="BOTH"
